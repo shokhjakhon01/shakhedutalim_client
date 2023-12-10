@@ -97,3 +97,70 @@ export const navigation = [
     ],
   },
 ]
+
+export const categories = [
+  {
+    name: "Creative Design",
+    id: 1,
+    icon: DesignIcons,
+  },
+  {
+    name: "Sales Marketing",
+    id: 2,
+    icon: AnnouncementIcons,
+  },
+  {
+    name: "Development It",
+    id: 3,
+    icon: CodingIcons,
+  },
+  {
+    name: "Engineering Architucture",
+    id: 4,
+    icon: PrintIcons,
+  },
+  {
+    name: "Personal Development",
+    id: 5,
+    icon: PersonIcons,
+  },
+  {
+    name: "Finance Accounting",
+    id: 6,
+    icon: LaptopIcons,
+  },
+]
+
+export const categoryCarousel = {
+  superLargeDesktop: {
+    breakpoint: { max: 4000, min: 1024 },
+    items: 5,
+  },
+  desktop: {
+    breakpoint: { max: 1024, min: 768 },
+    items: 3,
+  },
+  tablet: {
+    breakpoint: { max: 768, min: 640 },
+    items: 2,
+  },
+  mobile: {
+    breakpoint: { max: 640, min: 0 },
+    items: 1,
+  },
+}
+
+export const coursesCarousel = {
+  superLargeDesktop: {
+    breakpoint: { max: 4000, min: 768 },
+    items: 3,
+  },
+  tablet: {
+    breakpoint: { max: 768, min: 640 },
+    items: 2,
+  },
+  mobile: {
+    breakpoint: { max: 640, min: 0 },
+    items: 1,
+  },
+}

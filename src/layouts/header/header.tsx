@@ -14,7 +14,6 @@ import {
 } from "@chakra-ui/react"
 import React from "react"
 import Logo from "../../icons/logo3.png"
-import LogoPr from "../../icons/logopr.png"
 import Image from "next/image"
 import { BsFillMoonFill, BsFillSunFill, BsTranslate } from "react-icons/bs"
 import { BiMenuAltLeft, BiUserCircle } from "react-icons/bi"
@@ -27,6 +26,7 @@ export const Header = ({ onToggle }: HeaderProps) => {
   const { toggleColorMode, colorMode } = useColorMode()
   return (
     <Box
+      zIndex={99}
       width={"full"}
       height={"10vh"}
       px={10}
@@ -35,6 +35,8 @@ export const Header = ({ onToggle }: HeaderProps) => {
       left={0}
       top={0}
       right={0}
+      bg={useColorModeValue("gray.50", "gray.900")}
+      color={useColorModeValue("gray.700", "gray.200")}
       borderBottomColor={useColorModeValue("gray.200", "gray.700")}
     >
       <Flex height={"full"} justify={"space-between"} align={"center"}>

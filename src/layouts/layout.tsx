@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react"
+import { Box, Container } from "@chakra-ui/react"
 import { FunctionComponent, useState } from "react"
 import { LayoutProps } from "./layout.props"
 import Sidebar from "./sidebar/sidebar"
@@ -16,8 +16,9 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
         mt={"11vh"}
         pl={{ base: 0, lg: "320px" }}
         transition={"all .4s ease"}
+        minH={"90vh"}
       >
-        {children}
+        <Container maxW={"container.lg"}>{children}</Container>
       </Box>
     </Box>
   )
