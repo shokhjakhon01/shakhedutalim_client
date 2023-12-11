@@ -3,6 +3,7 @@ import { FunctionComponent, useState } from "react"
 import { LayoutProps } from "./layout.props"
 import Sidebar from "./sidebar/sidebar"
 import { Header } from "./header/header"
+import Footer from "./footer/footer"
 
 const Layout = ({ children }: LayoutProps): JSX.Element => {
   const [toggle, setToggle] = useState<boolean>(false)
@@ -20,6 +21,7 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
       >
         <Container maxW={"container.lg"}>{children}</Container>
       </Box>
+      <Footer />
     </Box>
   )
 }

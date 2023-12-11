@@ -17,7 +17,7 @@ const Sidebar = ({ toggle }: SidebarProps): JSX.Element => {
   const router = useRouter()
   return (
     <Box
-      zIndex={99}
+      zIndex={999999}
       w={{ base: "full", lg: "300px" }}
       h={"90vh"}
       pos={"fixed"}

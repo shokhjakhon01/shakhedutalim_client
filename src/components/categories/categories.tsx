@@ -1,8 +1,9 @@
 import React from "react"
 import SectionTitle from "../section-title/section-title"
 import Carousel from "react-multi-carousel"
-import { categories, categoryCarousel } from "src/config/constants"
+import { categories } from "src/config/constants"
 import { Box, Icon, Text, useColorModeValue } from "@chakra-ui/react"
+import { categoryCarousel } from "src/config/carousel"
 const Categories = () => {
   const backgroundColor = useColorModeValue("gray.100", "gray.900")
   const fill = useColorModeValue("#020288", "gray.600")

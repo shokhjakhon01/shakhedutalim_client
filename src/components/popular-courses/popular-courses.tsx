@@ -13,11 +13,11 @@ import React from "react"
 import SectionTitle from "../section-title/section-title"
 import { CourseType } from "src/interfaces/course.interface"
 import Carousel from "react-multi-carousel"
-import { coursesCarousel } from "src/config/constants"
 import ReactStars from "react-stars"
 import { CiViewList } from "react-icons/ci"
 import { AiOutlineClockCircle } from "react-icons/ai"
 import { SiGoogleanalytics } from "react-icons/si"
+import { coursesCarousel } from "src/config/carousel"
 
 const PopularCourses = () => {
   return (
@@ -41,7 +41,7 @@ const PopularCourses = () => {
               alt={item.title}
               objectFit={"cover"}
               h={"210px"}
-              w={"300px"}
+              w={"full"}
               borderRadius={"lg"}
             />
             <HStack>

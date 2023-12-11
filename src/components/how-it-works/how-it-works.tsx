@@ -59,7 +59,7 @@ export default HowItWorks
 
 const data = [
   {
-    title: "Sign up to Platform",
+    title: "Sign up Platform",
     icon: <OnlineCourseIcon />,
   },
   {

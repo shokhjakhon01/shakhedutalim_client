@@ -26,7 +26,7 @@ export const Header = ({ onToggle }: HeaderProps) => {
   const { toggleColorMode, colorMode } = useColorMode()
   return (
     <Box
-      zIndex={99}
+      zIndex={99999}
       width={"full"}
       height={"10vh"}
       px={10}
