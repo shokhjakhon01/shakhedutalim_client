@@ -6,8 +6,11 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react"
 import { format } from "date-fns"
+import { useTranslation } from "react-i18next"
 import { FaInstagram, FaTelegram, FaYoutube } from "react-icons/fa"
+
 const Footer = () => {
+  const { t } = useTranslation()
   return (
     <Box
       pl={{ base: 0, lg: "320px" }}
@@ -21,7 +24,8 @@ const Footer = () => {
     >
       <Flex justify={"space-between"} align={"center"} h={"full"}>
         <Text>
-          © {format(new Date(), "yyyy")} Shakhedutalim. All Rights Reserved
+          © {format(new Date(), "yyyy")} Shakhedutalim.{" "}
+          {t("footer", { ns: "layout" })}
         </Text>
         <Flex gap={3} mr={10}>
           <IconButton

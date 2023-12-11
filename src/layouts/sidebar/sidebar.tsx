@@ -12,9 +12,11 @@ import { useRouter } from "next/router"
 import React from "react"
 import { navigation } from "src/config/constants"
 import { SidebarProps } from "./sidebar.props"
+import { useTranslation } from "react-i18next"
 
 const Sidebar = ({ toggle }: SidebarProps): JSX.Element => {
   const router = useRouter()
+  const { t } = useTranslation()
   return (
     <Box
       zIndex={999999}
@@ -38,7 +40,7 @@ const Sidebar = ({ toggle }: SidebarProps): JSX.Element => {
       <Container maxW={"container.xl"}>
         {navigation.map((item) => (
           <Box key={item.title} mt={10}>
-            <Text>{item.title}</Text>
+            <Text>{t(item.title, { ns: "layout" })}</Text>
             {item.links.map((link) => {
               const active = router.asPath == link.route
               return (
@@ -53,7 +55,7 @@ const Sidebar = ({ toggle }: SidebarProps): JSX.Element => {
                   >
                     <HStack gap={2}>
                       <Icon as={link.icon} />
-                      <Text>{link.label}</Text>
+                      <Text>{t(link.label, { ns: "layout" })}</Text>
                     </HStack>
                   </Button>
                 </Link>

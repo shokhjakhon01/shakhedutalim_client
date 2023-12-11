@@ -11,8 +11,10 @@ import {
 import { VscDebugStart } from "react-icons/vsc"
 import React from "react"
 import { FaNodeJs } from "react-icons/fa"
+import { useTranslation } from "react-i18next"
 
 const Hero = () => {
+  const { t } = useTranslation()
   return (
     <Card mt={10}>
       <CardBody p={10}>
@@ -24,17 +26,14 @@ const Hero = () => {
           minH={"50vh"}
         >
           <Stack spacing={3}>
-            <Heading>Find a perfect online Courses</Heading>
-            <Text>
-              You can access 10000+ different courses from 1000+ professional
-              trainers from there
-            </Text>
+            <Heading>{t("hero_title", { ns: "home" })}</Heading>
+            <Text>{t("hero_description", { ns: "home" })}</Text>
             <Grid gridTemplateColumns={{ base: "100%", md: "50% 50%" }} gap={5}>
               <Button h={14} colorScheme="cyan" rightIcon={<VscDebugStart />}>
-                Start Learning
+                {t("hero_start_learning_btn", { ns: "home" })}
               </Button>
               <Button h={14} colorScheme="cyan" variant={"outline"}>
-                Become Instructors
+                {t("hero_become_instructor_btn", { ns: "home" })}
               </Button>
             </Grid>
           </Stack>

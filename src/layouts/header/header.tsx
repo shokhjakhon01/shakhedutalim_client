@@ -19,11 +19,17 @@ import { BsFillMoonFill, BsFillSunFill, BsTranslate } from "react-icons/bs"
 import { BiMenuAltLeft, BiUserCircle } from "react-icons/bi"
 import { MdOutlineContactSupport } from "react-icons/md"
 import Link from "next/link"
-import { EngIcons, RusIcons, TurkIcon, UzbIcons } from "src/icons"
 import { HeaderProps } from "./header.props"
+import { language } from "src/config/constants"
+import { useTranslation } from "react-i18next"
 
 export const Header = ({ onToggle }: HeaderProps) => {
   const { toggleColorMode, colorMode } = useColorMode()
+  const { t, i18n } = useTranslation()
+
+  const changeLanguage = (lng: string) => {
+    i18n.changeLanguage(lng)
+  }
   return (
     <Box
       zIndex={99999}
@@ -63,19 +69,29 @@ export const Header = ({ onToggle }: HeaderProps) => {
             colorScheme="cyan"
             variant={"ghost"}
           />
-          <Menu>
+          <Menu placement="bottom">
             <MenuButton
-              as={IconButton}
-              icon={<BsTranslate />}
+              as={Button}
+              rightIcon={<BsTranslate />}
               aria-label="translate"
               colorScheme="cyan"
               variant={"solid"}
-            />
-            <MenuList>
-              <MenuItem icon={<UzbIcons />}>UZB</MenuItem>
-              <MenuItem icon={<RusIcons />}>RUS</MenuItem>
-              <MenuItem icon={<EngIcons />}>ENG</MenuItem>
-              <MenuItem icon={<TurkIcon />}>TURK</MenuItem>
+            >
+              {i18n.resolvedLanguage.toUpperCase()}
+            </MenuButton>
+            <MenuList p={0}>
+              {language.map((item) => (
+                <MenuItem
+                  key={item.lng}
+                  onClick={() => changeLanguage(item.lng)}
+                  icon={<item.icon />}
+                  backgroundColor={
+                    i18n.resolvedLanguage == item.lng ? "cyan.500" : ""
+                  }
+                >
+                  {item.nativeLng}
+                </MenuItem>
+              ))}
             </MenuList>
           </Menu>
           <IconButton
@@ -88,7 +104,7 @@ export const Header = ({ onToggle }: HeaderProps) => {
             onClick={toggleColorMode}
           />
           <Button rightIcon={<BiUserCircle />} colorScheme={"cyan"}>
-            Login
+            {t("login", { ns: "layout" })}
           </Button>
         </HStack>
       </Flex>

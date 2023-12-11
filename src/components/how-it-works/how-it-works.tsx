@@ -10,28 +10,32 @@ import {
 import {
   Box,
   Flex,
+  Icon,
   SimpleGrid,
   Stack,
   Text,
   useColorModeValue,
 } from "@chakra-ui/react"
+import { useTranslation } from "react-i18next"
+import { howItWorks } from "src/config/constants"
 
 const HowItWorks = () => {
   const backgroundColor = useColorModeValue("gray.200", "gray.700")
+  const { t } = useTranslation()
   return (
     <>
       <SectionTitle
         textAlign={"center"}
-        titles="How it works?"
-        subtitle="10,000 unique online courses list designs"
+        titles={t("how_it_works_title", { ns: "home" })}
+        subtitle={t("how_it_works_description", { ns: "home" })}
       ></SectionTitle>
       <SimpleGrid mt={10} columns={5} spacing={10} alignItems={"center"}>
-        {data.map((item, i) => {
+        {howItWorks.map((item, i) => {
           const odd = i % 2
           return (
             <Fragment key={i}>
               {!odd ? (
-                <Stack justify={"center"}>
+                <Stack justify={"center"} align={"center"}>
                   <Flex
                     w={100}
                     h={100}
@@ -40,12 +44,16 @@ const HowItWorks = () => {
                     backgroundColor={backgroundColor}
                     borderRadius={"full"}
                   >
-                    {item.icon}
+                    <Icon as={item.icon} w={50} h={50} />
                   </Flex>
-                  <Text textAlign={"center"}>{item.title}</Text>
+                  <Text textAlign={"center"}>
+                    {t(`${item.title}`, { ns: "home" })}
+                  </Text>
                 </Stack>
               ) : (
-                <Stack justify={"center"}>{item.icon}</Stack>
+                <Stack justify={"center"}>
+                  <Icon as={item.icon} w={"142px"} h={"21px"} />
+                </Stack>
               )}
             </Fragment>
           )
@@ -56,24 +64,3 @@ const HowItWorks = () => {
 }
 
 export default HowItWorks
-
-const data = [
-  {
-    title: "Sign up Platform",
-    icon: <OnlineCourseIcon />,
-  },
-  {
-    icon: <RightLineIcon />,
-  },
-  {
-    title: "Find Courses",
-    icon: <OnlineLearningIcon />,
-  },
-  {
-    icon: <FinishRightIcon />,
-  },
-  {
-    title: "Learning Relaxing",
-    icon: <OnlineStudentIcon />,
-  },
-]
