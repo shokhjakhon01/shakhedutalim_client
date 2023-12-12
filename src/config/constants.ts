@@ -44,6 +44,18 @@ import {
   TurkIcon,
   UzbIcons,
 } from "src/icons"
+import { CourseType } from "src/interfaces/course.interface"
+
+export const courseCategory = [
+  "Front-End",
+  "Back-End",
+  "Full-Stack",
+  "Mobile Application",
+  "Web Design",
+  "Graphic Design",
+]
+
+export const courseLevel = ["Beginner", "Intermediate", "Expert"]
 
 export const navigation = [
   {
@@ -165,5 +177,92 @@ export const howItWorks = [
   {
     title: "how_it_works_third_step",
     icon: OnlineStudentIcon,
+  },
+]
+
+export const coursesFilter = [
+  {
+    title: "filter_category_title",
+    id: "category",
+    categoryList: courseCategory.map((c) => ({ name: c, id: c })),
+  },
+  {
+    title: "fitler_rating_title",
+    id: "rating",
+    categoryList: [
+      { name: "fitler_rating_item_1", id: "4.5" },
+      { name: "fitler_rating_item_2", id: "4" },
+      { name: "fitler_rating_item_3", id: "3.5" },
+      { name: "fitler_rating_item_4", id: "3" },
+    ],
+  },
+  {
+    title: "filter_language_title",
+    id: "language",
+    categoryList: [
+      { name: "filter_language_item_1", id: "en" },
+      { name: "filter_language_item_2", id: "ru" },
+      { name: "filter_language_item_3", id: "uz" },
+      { name: "filter_language_item_4", id: "tr" },
+    ],
+  },
+  {
+    title: "filter_level_title",
+    id: "level",
+    categoryList: courseLevel.map((c) => ({ name: c, id: c })),
+  },
+]
+
+export const courses: CourseType[] = [
+  {
+    image:
+      "https://miro.medium.com/v2/resize:fit:1400/1*LyZcwuLWv2FArOumCxobpA.png",
+    title: "Javascript full course",
+    lessonCount: 100,
+    totalHours: 15,
+    level: "Beginner",
+    price: 20,
+    reviewAvarage: 4.5,
+    reviewCount: 200,
+    author: {
+      firstName: "John",
+      lastName: "Odil",
+      avatar:
+        "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg",
+    },
+  },
+  {
+    image:
+      "https://miro.medium.com/v2/resize:fit:1400/1*LyZcwuLWv2FArOumCxobpA.png",
+    title: "Reactjs full course",
+    lessonCount: 150,
+    totalHours: 29.5,
+    level: "Advanced",
+    price: 30,
+    reviewAvarage: 4.5,
+    reviewCount: 200,
+    author: {
+      firstName: "John",
+      lastName: "Odil",
+      avatar:
+        "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg",
+    },
+  },
+  {
+    image:
+      "https://miro.medium.com/v2/resize:fit:1400/1*LyZcwuLWv2FArOumCxobpA.png",
+    title: "Nodejs full course",
+    lessonCount: 150,
+    totalHours: 29.5,
+    level: "Advanced",
+    price: 30,
+    reviewAvarage: 4,
+    reviewCount: 200,
+    author: {
+      firstName: "John",
+      lastName: "Odil",
+      avatar:
+        "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg",
+    },
   },
 ]

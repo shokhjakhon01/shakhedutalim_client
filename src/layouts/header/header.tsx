@@ -75,7 +75,7 @@ export const Header = ({ onToggle }: HeaderProps) => {
               rightIcon={<BsTranslate />}
               aria-label="translate"
               colorScheme="cyan"
-              variant={"solid"}
+              variant={"outline"}
             >
               {i18n.resolvedLanguage.toUpperCase()}
             </MenuButton>
