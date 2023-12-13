@@ -22,12 +22,15 @@ import Link from "next/link"
 import { HeaderProps } from "./header.props"
 import { language } from "src/config/constants"
 import { useTranslation } from "react-i18next"
+import { useRouter } from "next/router"
 
 export const Header = ({ onToggle }: HeaderProps) => {
   const { toggleColorMode, colorMode } = useColorMode()
   const { t, i18n } = useTranslation()
+  const router = useRouter()
 
   const changeLanguage = (lng: string) => {
+    router.replace(router.asPath)
     i18n.changeLanguage(lng)
   }
   return (

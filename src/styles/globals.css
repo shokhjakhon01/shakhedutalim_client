@@ -2,3 +2,8 @@ html,
 body {
   scroll-behavior: smooth;
 }
+
+#nprogress .bar {
+  background-color: black !important;
+  height: 10px;
+}
