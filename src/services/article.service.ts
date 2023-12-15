@@ -23,6 +23,9 @@ export const Articles = {
             }
             name
           }
+          description {
+            text
+          }
         }
       }
     `
@@ -34,5 +37,36 @@ export const Articles = {
       }
     )
     return result.articles
+  },
+  getDetailedArticles: async (slug: String) => {
+    const query = gql`
+      query GetSingleArticles($slug: String!) {
+        article(where: { slug: $slug }) {
+          id
+          createdAt
+          title
+          slug
+          excerpt
+          image {
+            url
+          }
+          author {
+            avatar {
+              url
+            }
+            name
+          }
+          description {
+            text
+            raw
+          }
+          language
+        }
+      }
+    `
+    const result = await request<{ article: ArticleType }>(graphqlApi, query, {
+      slug,
+    })
+    return result.article
   },
 }

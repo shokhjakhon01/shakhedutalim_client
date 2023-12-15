@@ -7,10 +7,10 @@ export interface ArticleType {
   title: string
   author: AuthorTypeProps
   description: {
-    raw: {
-      children: []
-    }
+    text: string
+    raw: []
   }
+  language: string
 }
 
 export interface AuthorTypeProps {

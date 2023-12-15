@@ -6,7 +6,6 @@ import { ArticlePageComponent } from "src/page-component"
 import { Articles } from "src/services/article.service"
 
 const ArticlesPage = ({ articles }: ArticlePageProps) => {
-  console.log(articles)
   return <ArticlePageComponent articles={articles} />
 }
 

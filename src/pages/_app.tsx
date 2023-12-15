@@ -1,8 +1,6 @@
 import "@fontsource/roboto"
-import "nprogress/nprogress.css"
-import "react-multi-carousel/lib/styles.css"
-import "nprogress/nprogress.css"
 import "../styles/globals.css"
+import "nprogress/nprogress.css"
 import "react-multi-carousel/lib/styles.css"
 import { ChakraProvider } from "@chakra-ui/react"
 import type { AppProps } from "next/app"
@@ -14,7 +12,8 @@ import NProgress from "nprogress"
 import Router from "next/router"
 import { useEffect } from "react"
 
-NProgress.configure({ showSpinner: false })
+NProgress.configure({ showSpinner: true })
+
 function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     const handleRouteStart = () => NProgress.start()

@@ -42,9 +42,9 @@ const Sidebar = ({ toggle }: SidebarProps): JSX.Element => {
           <Box key={item.title} mt={10}>
             <Text>{t(item.title, { ns: "layout" })}</Text>
             {item.links.map((link) => {
-              const active = router.asPath == link.route
+              const active = `/${router.pathname.split("/")[1]}` == link.route
               return (
-                <Link key={link.label} href={link.route}>
+                <Link key={link.label} href={`${link.route}`}>
                   <Button
                     colorScheme="cyan"
                     variant={active ? "solid" : "outline"}
