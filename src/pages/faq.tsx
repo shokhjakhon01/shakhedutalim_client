@@ -1,8 +1,9 @@
 import React from "react"
 import { withLayout } from "src/layouts/layout"
+import { FaqPageComponent } from "src/page-component"
 
 const FaqPage = () => {
-  return <div>FaqPage</div>
+  return <FaqPageComponent />
 }
 
 export default withLayout(FaqPage)
