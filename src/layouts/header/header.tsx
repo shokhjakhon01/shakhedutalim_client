@@ -106,7 +106,11 @@ export const Header = ({ onToggle }: HeaderProps) => {
             variant={"outline"}
             onClick={toggleColorMode}
           />
-          <Button rightIcon={<BiUserCircle />} colorScheme={"cyan"}>
+          <Button
+            rightIcon={<BiUserCircle />}
+            onClick={() => router.push("/auth")}
+            colorScheme={"cyan"}
+          >
             {t("login", { ns: "layout" })}
           </Button>
         </HStack>
