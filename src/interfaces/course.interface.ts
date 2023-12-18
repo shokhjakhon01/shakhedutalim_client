@@ -4,6 +4,7 @@ export interface CourseType {
   lessonCount: number
   totalHours: number
   level: string
+  slug: string
   price: number
   reviewAvarage: number
   reviewCount: number

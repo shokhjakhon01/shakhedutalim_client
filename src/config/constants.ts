@@ -218,6 +218,7 @@ export const courses: CourseType[] = [
     image:
       "https://miro.medium.com/v2/resize:fit:1400/1*LyZcwuLWv2FArOumCxobpA.png",
     title: "Javascript full course",
+    slug: "javascript",
     lessonCount: 100,
     totalHours: 15,
     level: "Beginner",
@@ -235,6 +236,7 @@ export const courses: CourseType[] = [
     image:
       "https://miro.medium.com/v2/resize:fit:1400/1*LyZcwuLWv2FArOumCxobpA.png",
     title: "Reactjs full course",
+    slug: "react",
     lessonCount: 150,
     totalHours: 29.5,
     level: "Advanced",
@@ -252,6 +254,7 @@ export const courses: CourseType[] = [
     image:
       "https://miro.medium.com/v2/resize:fit:1400/1*LyZcwuLWv2FArOumCxobpA.png",
     title: "Nodejs full course",
+    slug: "nodejs",
     lessonCount: 150,
     totalHours: 29.5,
     level: "Advanced",

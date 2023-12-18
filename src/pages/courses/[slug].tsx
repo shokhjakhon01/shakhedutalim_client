@@ -1,5 +1,8 @@
+import { withLayout } from "src/layouts/layout"
+import { DetailedCourseComponent } from "src/page-component"
+
 const DetailedCoursePage = () => {
-  return <div>DetailedCoursePage</div>
+  return <DetailedCourseComponent />
 }
 
-export default DetailedCoursePage
+export default withLayout(DetailedCoursePage)

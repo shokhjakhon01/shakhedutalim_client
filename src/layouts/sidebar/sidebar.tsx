@@ -17,6 +17,9 @@ import { useTranslation } from "react-i18next"
 const Sidebar = ({ toggle }: SidebarProps): JSX.Element => {
   const router = useRouter()
   const { t } = useTranslation()
+
+  const changeSidebarHandler = (item: string) => router.push(item)
+
   return (
     <Box
       zIndex={999999}
@@ -44,21 +47,21 @@ const Sidebar = ({ toggle }: SidebarProps): JSX.Element => {
             {item.links.map((link) => {
               const active = `/${router.pathname.split("/")[1]}` == link.route
               return (
-                <Link key={link.label} href={`${link.route}`}>
-                  <Button
-                    colorScheme="cyan"
-                    variant={active ? "solid" : "outline"}
-                    w={"full"}
-                    justifyContent={"flex-start"}
-                    h={14}
-                    mt={2}
-                  >
-                    <HStack gap={2}>
-                      <Icon as={link.icon} />
-                      <Text>{t(link.label, { ns: "layout" })}</Text>
-                    </HStack>
-                  </Button>
-                </Link>
+                <Button
+                  key={link.label}
+                  colorScheme="cyan"
+                  variant={active ? "solid" : "outline"}
+                  w={"full"}
+                  justifyContent={"flex-start"}
+                  h={14}
+                  mt={2}
+                  onClick={() => changeSidebarHandler(link.route)}
+                >
+                  <HStack gap={2}>
+                    <Icon as={link.icon} />
+                    <Text>{t(link.label, { ns: "layout" })}</Text>
+                  </HStack>
+                </Button>
               )
             })}
           </Box>

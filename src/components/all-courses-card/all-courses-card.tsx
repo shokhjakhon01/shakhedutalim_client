@@ -17,8 +17,14 @@ import { AiOutlineClockCircle } from "react-icons/ai"
 import { SiGoogleanalytics } from "react-icons/si"
 import { BsMinecartLoaded } from "react-icons/bs"
 import { BiDetail } from "react-icons/bi"
+import Link from "next/link"
+import { useRouter } from "next/router"
 
 const AllCoursesCard = ({ course }: AllCoursesCardProps) => {
+  const router = useRouter()
+
+  const onDetailedCourse = () => router.push(`/courses/${course.slug}`)
+
   return (
     <>
       <Box py={4}>
@@ -30,6 +36,8 @@ const AllCoursesCard = ({ course }: AllCoursesCardProps) => {
             h={"250px"}
             borderRadius={"lg"}
             objectFit={"cover"}
+            onClick={onDetailedCourse}
+            cursor={"pointer"}
           />
           <Stack>
             <HStack>
@@ -94,7 +102,11 @@ const AllCoursesCard = ({ course }: AllCoursesCardProps) => {
                 <Button rightIcon={<BsMinecartLoaded />} colorScheme="cyan">
                   Add to Card
                 </Button>
-                <Button rightIcon={<BiDetail />} colorScheme="cyan">
+                <Button
+                  onClick={onDetailedCourse}
+                  rightIcon={<BiDetail />}
+                  colorScheme="cyan"
+                >
                   Detail
                 </Button>
               </Flex>
