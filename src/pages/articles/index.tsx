@@ -1,12 +1,22 @@
 import { GetServerSideProps } from "next"
+import { useTranslation } from "react-i18next"
 import { ArticleType } from "src/interfaces/article.interface"
 import { Language } from "src/interfaces/constants.interface"
 import { withLayout } from "src/layouts/layout"
+import Seo from "src/layouts/seo/seo"
 import { ArticlePageComponent } from "src/page-component"
 import { Articles } from "src/services/article.service"
 
 const ArticlesPage = ({ articles }: ArticlePageProps) => {
-  return <ArticlePageComponent articles={articles} />
+  const { t } = useTranslation()
+  return (
+    <Seo
+      metaTitle={`Shakhedutalim | ${t("article_page_title", { ns: "seo" })}`}
+      metaDescription={`${t("article_page_description", { ns: "seo" })}`}
+    >
+      <ArticlePageComponent articles={articles} />
+    </Seo>
+  )
 }
 
 export default withLayout(ArticlesPage)
