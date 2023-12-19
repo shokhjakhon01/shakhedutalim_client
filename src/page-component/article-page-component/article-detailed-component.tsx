@@ -5,18 +5,57 @@ import {
   CardBody,
   HStack,
   Heading,
+  Icon,
   Image,
   Stack,
   Text,
+  useToast,
 } from "@chakra-ui/react"
 import { ArticleDetailedProps } from "./article-page-component.props"
 import { format } from "date-fns"
 import { calculateEstimatedReadingTime } from "src/helpers/time.helper"
 import { useTranslation } from "react-i18next"
 import { RichText } from "@graphcms/rich-text-react-renderer"
+import { useSpeechSynthesis } from "react-speech-kit"
+import { useEffect, useState } from "react"
+import { useRouter } from "next/router"
+import Cookies from "js-cookie"
+import { voiceLanguages } from "src/config/constants"
+import { AiFillPlayCircle } from "react-icons/ai"
+import { BsFillStopCircleFill } from "react-icons/bs"
 
 const ArticleDetailedComponent = ({ article }: ArticleDetailedProps) => {
+  const [myVoice, setMyVoice] = useState()
   const { t } = useTranslation()
+  const toast = useToast()
+  const router = useRouter()
+
+  const onEnd = () => {
+    toast({
+      title: "Ai read article",
+      status: "info",
+      position: "top-right",
+      isClosable: true,
+    })
+  }
+  const { speak, voices, cancel, speaking, supported } = useSpeechSynthesis({
+    onEnd,
+  })
+
+  useEffect(() => {
+    const lng = Cookies.get("i18next")
+    const currentLanguage = voiceLanguages.find((item) => item.language === lng)
+    const supportLanguage = voiceLanguages.map((c) => c.voiceUrl)
+    const allSuportVoices = voices.filter((item) =>
+      supportLanguage.includes(item.voiceURI)
+    )
+
+    const currentVoice = allSuportVoices.find(
+      (item) => item.lang === currentLanguage?.codes
+    )
+
+    setMyVoice(currentVoice)
+  }, [voices, router])
   return (
     <>
       <Card>
@@ -64,6 +103,51 @@ const ArticleDetailedComponent = ({ article }: ArticleDetailedProps) => {
         </CardBody>
       </Card>
       <Box>
+        {supported && myVoice && (
+          <Box
+            my={5}
+            position={"relative"}
+            cursor={"pointer"}
+            border={"1px"}
+            w={"300px"}
+            p={1}
+            borderRadius={"lg"}
+            maxH={"200px"}
+            borderColor={"gray"}
+          >
+            {!speaking ? (
+              <HStack
+                onClick={() => {
+                  speak({
+                    text: `${t("start_reading_article", { ns: "global" })} ${
+                      article.title
+                    } ${t("article", { ns: "global" })}. ${
+                      article.description.text
+                    }`,
+                    voice: myVoice,
+                  })
+                }}
+              >
+                <Icon as={AiFillPlayCircle} w={10} h={10} />
+                <Text>{t("play", { ns: "global" })}</Text>
+              </HStack>
+            ) : (
+              <HStack onClick={cancel}>
+                <Icon as={BsFillStopCircleFill} w={10} h={10} />
+                <Text>{t("stop", { ns: "global" })}</Text>
+                {speaking && (
+                  <Image
+                    src="/images/wave.gif"
+                    alt="wave"
+                    pos={"absolute"}
+                    width={"50%"}
+                    right={0}
+                  />
+                )}
+              </HStack>
+            )}
+          </Box>
+        )}
         <RichText
           content={article.description.raw}
           renderers={{

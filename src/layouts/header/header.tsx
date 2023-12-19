@@ -23,6 +23,7 @@ import { HeaderProps } from "./header.props"
 import { language } from "src/config/constants"
 import { useTranslation } from "react-i18next"
 import { useRouter } from "next/router"
+import { AiOutlineLogin } from "react-icons/ai"
 
 export const Header = ({ onToggle }: HeaderProps) => {
   const { toggleColorMode, colorMode } = useColorMode()
@@ -35,7 +36,7 @@ export const Header = ({ onToggle }: HeaderProps) => {
   }
   return (
     <Box
-      zIndex={99999}
+      zIndex={1001}
       width={"full"}
       height={"10vh"}
       px={10}
@@ -107,12 +108,21 @@ export const Header = ({ onToggle }: HeaderProps) => {
             onClick={toggleColorMode}
           />
           <Button
+            display={{ base: "none", md: "flex" }}
             rightIcon={<BiUserCircle />}
             onClick={() => router.push("/auth")}
             colorScheme={"cyan"}
           >
             {t("login", { ns: "layout" })}
           </Button>
+          <IconButton
+            display={{ base: "flex", md: "none" }}
+            aria-label="login"
+            onClick={() => router.push("/auth")}
+            icon={<AiOutlineLogin />}
+            colorScheme={"cyan"}
+            variant={"outline"}
+          />
         </HStack>
       </Flex>
     </Box>

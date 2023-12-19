@@ -354,3 +354,21 @@ export const avatars = [
     url: "https://bit.ly/code-beast",
   },
 ]
+
+export const voiceLanguages = [
+  {
+    language: "en",
+    codes: "en-GB",
+    voiceUrl: "Google UK English Female",
+  },
+  {
+    language: "tr",
+    codes: "tr-TR",
+    voiceUrl: "Yelda",
+  },
+  {
+    language: "ru",
+    codes: "ru-RU",
+    voiceUrl: "Google русский",
+  },
+]
