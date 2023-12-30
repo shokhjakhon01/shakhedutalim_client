@@ -30,16 +30,17 @@ const Register = ({ onNavigateStateComponent }: RegisterProps) => {
   const { error, isLoading } = useTypedSelector((state) => state.user)
 
   const onSubmit = async (formData: InterfaceEmailAndPassword) => {
-    try {
-      const response = sendVerificationCode({ email: formData.email })
-      const result: any = response
-      if (result.payload == "Success") {
-        pendingRegister({ email: formData.email, password: formData.password })
+    sendVerificationCode({
+      email: formData.email,
+      isUser: false,
+      callback: () => {
+        pendingRegister({
+          email: formData.email,
+          password: formData.password,
+        })
         !isLoading && onNavigateStateComponent("verification")
-      }
-    } catch (error) {
-      console.log(error)
-    }
+      },
+    })
   }
 
   return (

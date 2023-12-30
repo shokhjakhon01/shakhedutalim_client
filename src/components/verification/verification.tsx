@@ -27,22 +27,25 @@ const Verification = () => {
   const toast = useToast()
 
   const onSubmit = async (formData: { otp: string }) => {
-    const data = { email: user?.email as string, otp: formData.otp }
-    const verifyResponse: any = verifyVerificationCode(data)
-    if (verifyResponse.payload === "Success") {
-      const response: any = register({
-        email: user?.email as string,
-        password: user?.password as string,
-      })
-      if (response.payload.accessToken) {
-        router.push("/")
-        toast({
-          title: "Successfully logged in",
-          position: "top-right",
-          isClosable: true,
+    const email = user?.email as string
+    verifyVerificationCode({
+      email,
+      otp: formData.otp,
+      callback: () => {
+        register({
+          email: user?.email as string,
+          password: user?.password as string,
+          callback: () => {
+            router.push("/")
+            toast({
+              title: "Successfully logged in",
+              position: "top-right",
+              isClosable: true,
+            })
+          },
         })
-      }
-    }
+      },
+    })
   }
 
   return (

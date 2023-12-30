@@ -1,18 +1,15 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { AuthService } from "src/services/auth.service"
-import {
-  AuthUserResponse,
-  InterfaceEmailAndOtp,
-  InterfaceEmailAndPassword,
-} from "./user.interface"
+import { AuthUserResponse } from "./user.interface"
 import { errorCatch } from "src/helpers/api.helper"
 
 export const register = createAsyncThunk<
   AuthUserResponse,
-  InterfaceEmailAndPassword
->("auth/register", async ({ email, password }, thunkApi) => {
+  { email: string; password: string; callback: () => void }
+>("auth/register", async ({ email, password, callback }, thunkApi) => {
   try {
     const response = await AuthService.register(email, password)
+    callback()
     return response.data
   } catch (error) {
     return thunkApi.rejectWithValue(errorCatch(error))
@@ -21,10 +18,11 @@ export const register = createAsyncThunk<
 
 export const login = createAsyncThunk<
   AuthUserResponse,
-  InterfaceEmailAndPassword
->("auth/login", async ({ email, password }, thunkApi) => {
+  { email: string; password: string; callback: () => void }
+>("auth/login", async ({ email, password, callback }, thunkApi) => {
   try {
     const response = await AuthService.login(email, password)
+    callback()
     return response.data
   } catch (error) {
     return thunkApi.rejectWithValue(errorCatch(error))
@@ -33,10 +31,11 @@ export const login = createAsyncThunk<
 
 export const sendVerificationCode = createAsyncThunk<
   "Success",
-  { email: string }
->("auth/verification-code", async ({ email }, thunkApi) => {
+  { email: string; isUser: boolean; callback: () => void }
+>("auth/verification-code", async ({ email, isUser, callback }, thunkApi) => {
   try {
-    const response = await AuthService.sendotp(email)
+    const response = await AuthService.sendotp(email, isUser)
+    callback()
     return response.data
   } catch (error) {
     return thunkApi.rejectWithValue(errorCatch(error))
@@ -45,10 +44,27 @@ export const sendVerificationCode = createAsyncThunk<
 
 export const verifyVerificationCode = createAsyncThunk<
   "Success",
-  InterfaceEmailAndOtp
->("auth/verify-verification-code", async ({ email, otp }, thunkApi) => {
+  { email: string; otp: string; callback: () => void }
+>(
+  "auth/verify-verification-code",
+  async ({ email, otp, callback }, thunkApi) => {
+    try {
+      const response = await AuthService.verifyOtp(email, otp)
+      callback()
+      return response.data
+    } catch (error) {
+      return thunkApi.rejectWithValue(errorCatch(error))
+    }
+  }
+)
+
+export const editProfilePassword = createAsyncThunk<
+  "Success",
+  { email: string; password: string; callback: () => void }
+>("auth/edit-userPasword", async ({ email, password, callback }, thunkApi) => {
   try {
-    const response = await AuthService.verifyOtp(email, otp)
+    const response = await AuthService.editProfilePassword(email, password)
+    callback()
     return response.data
   } catch (error) {
     return thunkApi.rejectWithValue(errorCatch(error))

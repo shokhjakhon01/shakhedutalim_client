@@ -37,18 +37,19 @@ const Login = ({ onNavigateStateComponent }: LoginProps) => {
   const toast = useToast()
 
   const onSubmit = async (formData: InterfaceEmailAndPassword) => {
-    try {
-      login({ email: formData.email, password: formData.password })
-      router.push("/")
-      toast({
-        title: "Successfully logged in",
-        status: "success",
-        isClosable: true,
-        position: "top-right",
-      })
-    } catch (error) {
-      console.log(error)
-    }
+    login({
+      email: formData.email,
+      password: formData.password,
+      callback: () => {
+        router.push("/")
+        toast({
+          title: "Successfully logged in",
+          status: "success",
+          isClosable: true,
+          position: "top-right",
+        })
+      },
+    })
   }
 
   return (

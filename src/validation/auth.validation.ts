@@ -31,4 +31,22 @@ export const AuthValidation = {
         .min(6, "Verification code must be 6 digit"),
     })
   },
+  onlyEmail() {
+    return Yup.object({
+      email: Yup.string()
+        .email("email is invalid")
+        .required("email is required"),
+    })
+  },
+
+  editPassword() {
+    return Yup.object({
+      password: Yup.string()
+        .min(6, "Password must be at  least 6 characters")
+        .required("Password is required"),
+      confirmPassword: Yup.string()
+        .oneOf([Yup.ref("password")], "Password doesnt same")
+        .required("Confirm Password is required"),
+    })
+  },
 }
