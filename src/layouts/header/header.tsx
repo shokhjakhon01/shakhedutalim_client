@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Box,
   Button,
   Flex,
@@ -24,16 +25,30 @@ import { language } from "src/config/constants"
 import { useTranslation } from "react-i18next"
 import { useRouter } from "next/router"
 import { AiOutlineLogin } from "react-icons/ai"
+import { useAuth } from "src/hooks/useAuth"
+import { FiSettings } from "react-icons/fi"
+import { IoIosLogOut } from "react-icons/io"
+import { useActions } from "src/hooks/useActions"
+import { signOut } from "next-auth/react"
 
 export const Header = ({ onToggle }: HeaderProps) => {
   const { toggleColorMode, colorMode } = useColorMode()
   const { t, i18n } = useTranslation()
+  const { user } = useAuth()
   const router = useRouter()
+  const { logout } = useActions()
 
   const changeLanguage = (lng: string) => {
     router.replace(router.asPath)
     i18n.changeLanguage(lng)
   }
+
+  const logoutHandler = () => {
+    logout()
+    signOut()
+    router.push("/auth")
+  }
+
   return (
     <Box
       zIndex={1001}
@@ -107,22 +122,50 @@ export const Header = ({ onToggle }: HeaderProps) => {
             variant={"outline"}
             onClick={toggleColorMode}
           />
-          <Button
-            display={{ base: "none", md: "flex" }}
-            rightIcon={<BiUserCircle />}
-            onClick={() => router.push("/auth")}
-            colorScheme={"cyan"}
-          >
-            {t("login", { ns: "layout" })}
-          </Button>
-          <IconButton
-            display={{ base: "flex", md: "none" }}
-            aria-label="login"
-            onClick={() => router.push("/auth")}
-            icon={<AiOutlineLogin />}
-            colorScheme={"cyan"}
-            variant={"outline"}
-          />
+          {user ? (
+            <Menu>
+              <MenuButton>
+                <Avatar />
+              </MenuButton>
+              <MenuList p={0} m={0}>
+                <MenuItem
+                  h={14}
+                  onClick={() => router.push("/")}
+                  fontWeight={"bold"}
+                  icon={<FiSettings />}
+                >
+                  Settings
+                </MenuItem>
+                <MenuItem
+                  h={14}
+                  onClick={logoutHandler}
+                  fontWeight={"bold"}
+                  icon={<IoIosLogOut />}
+                >
+                  Logout
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          ) : (
+            <>
+              <Button
+                display={{ base: "none", md: "flex" }}
+                rightIcon={<BiUserCircle />}
+                onClick={() => router.push("/auth")}
+                colorScheme={"cyan"}
+              >
+                {t("login", { ns: "layout" })}
+              </Button>
+              <IconButton
+                display={{ base: "flex", md: "none" }}
+                aria-label="login"
+                onClick={() => router.push("/auth")}
+                icon={<AiOutlineLogin />}
+                colorScheme={"cyan"}
+                variant={"outline"}
+              />
+            </>
+          )}
         </HStack>
       </Flex>
     </Box>

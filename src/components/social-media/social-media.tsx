@@ -1,9 +1,23 @@
 import { Box, Button, Center, HStack, Text } from "@chakra-ui/react"
+import { signIn } from "next-auth/react"
 import { useTranslation } from "react-i18next"
 import { FaGithub, FaGoogle } from "react-icons/fa"
 
 const SocialMedia = () => {
   const { t } = useTranslation()
+
+  const google = async () => {
+    signIn("google", {
+      callbackUrl: `${process.env.NEXT_PUBLIC_CLIENT_DOMAIN}`,
+    })
+  }
+
+  const github = () => {
+    signIn("github", {
+      callbackUrl: `${process.env.NEXT_PUBLIC_CLIENT_DOMAIN}`,
+    })
+  }
+
   return (
     <>
       <Box
@@ -33,14 +47,19 @@ const SocialMedia = () => {
         {t("or", { ns: "global" })}
       </Box>
       <HStack>
-        <Button w={"full"} colorScheme={"gray"} leftIcon={<FaGithub />}>
+        {/* <Button
+          onClick={github}
+          w={"full"}
+          colorScheme={"gray"}
+          leftIcon={<FaGithub />}
+        >
           <Center>
             <Text>Github</Text>
           </Center>
-        </Button>
+        </Button> */}
 
         <Button
-          // onClick={gogole}
+          onClick={google}
           w={"full"}
           colorScheme={"red"}
           variant={"outline"}

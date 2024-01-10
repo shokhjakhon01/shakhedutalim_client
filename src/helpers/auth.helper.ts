@@ -2,16 +2,11 @@ import Cookies from "js-cookie"
 import { AuthToken, AuthUserResponse } from "src/store/user/user.interface"
 
 export const saveTokensCookies = (data: AuthToken) => {
-  Cookies.set("accessToken", data.accessToken)
-  Cookies.set("refreshToken", data.refreshToken)
-}
-
-export const saveStorage = (data: AuthUserResponse) => {
-  saveTokensCookies(data)
-  localStorage.setItem("user", JSON.stringify(data.user))
+  Cookies.set("access", data.accessToken)
+  Cookies.set("refresh", data.refreshToken)
 }
 
 export const removeTokenCookie = () => {
-  Cookies.remove("accessToken")
-  Cookies.remove("refreshToken")
+  Cookies.remove("access")
+  Cookies.remove("refresh")
 }

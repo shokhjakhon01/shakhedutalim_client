@@ -13,10 +13,12 @@ import Router from "next/router"
 import { useEffect } from "react"
 import { Provider } from "react-redux"
 import { store } from "src/store/store"
+import { SessionProvider } from "next-auth/react"
+import AuthProvider from "src/provider/auth.provider"
 
 NProgress.configure({ showSpinner: true })
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   useEffect(() => {
     const handleRouteStart = () => NProgress.start()
     const handleRouteDone = () => NProgress.done()
@@ -34,13 +36,17 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <HydrationProvider>
       <Provider store={store}>
-        <I18nextProvider i18n={i18n}>
-          <ChakraProvider theme={theme}>
-            <Client>
-              <Component {...pageProps} />
-            </Client>
-          </ChakraProvider>
-        </I18nextProvider>
+        <SessionProvider session={session}>
+          <I18nextProvider i18n={i18n}>
+            <ChakraProvider theme={theme}>
+              <Client>
+                <AuthProvider>
+                  <Component {...pageProps} />
+                </AuthProvider>
+              </Client>
+            </ChakraProvider>
+          </I18nextProvider>
+        </SessionProvider>
       </Provider>
     </HydrationProvider>
   )
