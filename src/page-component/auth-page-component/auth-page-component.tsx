@@ -25,6 +25,7 @@ import {
   SocialMedia,
   Verification,
 } from "src/components"
+import { useActions } from "src/hooks/useActions"
 
 const AuthPageComponent = () => {
   const [state, setState] = useState<
@@ -33,10 +34,14 @@ const AuthPageComponent = () => {
 
   const { t } = useTranslation()
   const breakpointValue = useBreakpointValue({ base: "md", md: "lg" })
+  const { clearError } = useActions()
 
   const navigateStateComponent = (
     component: "login" | "register" | "verification" | "account-recovery"
-  ) => setState(component)
+  ) => {
+    setState(component)
+    clearError()
+  }
 
   const renderStateComponent = () => {
     switch (state) {

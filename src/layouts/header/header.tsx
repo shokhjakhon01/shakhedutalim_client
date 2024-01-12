@@ -29,7 +29,6 @@ import { useAuth } from "src/hooks/useAuth"
 import { FiSettings } from "react-icons/fi"
 import { IoIosLogOut } from "react-icons/io"
 import { useActions } from "src/hooks/useActions"
-import { signOut } from "next-auth/react"
 
 export const Header = ({ onToggle }: HeaderProps) => {
   const { toggleColorMode, colorMode } = useColorMode()
@@ -45,7 +44,6 @@ export const Header = ({ onToggle }: HeaderProps) => {
 
   const logoutHandler = () => {
     logout()
-    signOut()
     router.push("/auth")
   }
 
@@ -125,7 +123,7 @@ export const Header = ({ onToggle }: HeaderProps) => {
           {user ? (
             <Menu>
               <MenuButton>
-                <Avatar />
+                <Avatar src={user.avatar} name={user.fullname} />
               </MenuButton>
               <MenuList p={0} m={0}>
                 <MenuItem
@@ -134,7 +132,7 @@ export const Header = ({ onToggle }: HeaderProps) => {
                   fontWeight={"bold"}
                   icon={<FiSettings />}
                 >
-                  Settings
+                  {t("settings", { ns: "global" })}
                 </MenuItem>
                 <MenuItem
                   h={14}
@@ -142,7 +140,7 @@ export const Header = ({ onToggle }: HeaderProps) => {
                   fontWeight={"bold"}
                   icon={<IoIosLogOut />}
                 >
-                  Logout
+                  {t("logout", { ns: "global" })}
                 </MenuItem>
               </MenuList>
             </Menu>

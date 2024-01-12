@@ -1,4 +1,4 @@
-import $axios from "src/api/axios"
+import axios from "axios"
 import { serialize } from "cookie"
 import { NextApiRequest, NextApiResponse } from "next"
 import nextAuth from "next-auth"
@@ -27,8 +27,8 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
           const email = user.email as string
           const checkUser = await AuthService.checkUser(email)
           if (checkUser === "user") {
-            const response = await $axios.post<AuthUserResponse>(
-              `${getAuthUrl("login")}`,
+            const response = await axios.post<AuthUserResponse>(
+              `${API_URL}${getAuthUrl("login")}`,
               {
                 email,
                 password: "",
@@ -47,10 +47,12 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
 
             return true
           } else if (checkUser === "no-user") {
-            const response = await $axios.post<AuthUserResponse>(
-              `${getAuthUrl("register")}`,
+            const response = await axios.post<AuthUserResponse>(
+              ` ${API_URL}${getAuthUrl("register")}`,
               {
                 email,
+                fullName: user.name,
+                avatar: user.image,
                 password: "",
               }
             )

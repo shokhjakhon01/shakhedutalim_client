@@ -4,49 +4,48 @@ export const AuthValidation = {
   register() {
     return Yup.object({
       email: Yup.string()
-        .email("email is invalid")
-        .required("email is required"),
+        .email("email_is_invalid")
+        .required("email_is_required"),
       password: Yup.string()
-        .min(6, "Password must be at  least 6 characters")
-        .required("Password is required"),
+        .min(6, "password_shouldbe_min_6")
+        .required("password_is_required"),
       confirmPassword: Yup.string()
-        .oneOf([Yup.ref("password")], "Password doesnt same")
-        .required("Confirm Password is required"),
+        .oneOf([Yup.ref("password")], "password_didn't_match")
+        .required("confirm_password_is_required"),
     })
   },
   login() {
     return Yup.object({
       email: Yup.string()
-        .email("email is invalid")
-        .required("email is required"),
+        .email("email_is_invalid")
+        .required("email_is_required"),
       password: Yup.string()
-        .min(6, "Password must be at  least 6 characters")
-        .required("Password is required"),
+        .min(6, "password_shouldbe_min_6")
+        .required("password_is_required"),
     })
   },
   otp() {
     return Yup.object({
       otp: Yup.string()
-        .required("Enter Verification code")
-        .min(6, "Verification code must be 6 digit"),
+        .required("otp_is_required")
+        .min(6, "verification_code_shouldbe_6"),
     })
   },
   onlyEmail() {
     return Yup.object({
       email: Yup.string()
-        .email("email is invalid")
-        .required("email is required"),
+        .email("email_is_invalid")
+        .required("email_is_required"),
     })
   },
-
   editPassword() {
     return Yup.object({
       password: Yup.string()
-        .min(6, "Password must be at  least 6 characters")
-        .required("Password is required"),
+        .min(6, "password_shouldbe_min_6")
+        .required("password_is_required"),
       confirmPassword: Yup.string()
-        .oneOf([Yup.ref("password")], "Password doesnt same")
-        .required("Confirm Password is required"),
+        .oneOf([Yup.ref("password")], "password_didn't_match")
+        .required("confirm_password_is_required"),
     })
   },
 }

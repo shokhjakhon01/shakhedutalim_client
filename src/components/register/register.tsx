@@ -25,7 +25,7 @@ import { useTypedSelector } from "src/hooks/useTypedSelector"
 
 const Register = ({ onNavigateStateComponent }: RegisterProps) => {
   const { show, toggleShow, showConfirm, toggleShowConfirm } = useShowPassword()
-  const { pendingRegister, sendVerificationCode } = useActions()
+  const { pendingRegister, sendVerificationCode, clearError } = useActions()
   const { t } = useTranslation()
   const { error, isLoading } = useTypedSelector((state) => state.user)
 
@@ -68,7 +68,11 @@ const Register = ({ onNavigateStateComponent }: RegisterProps) => {
         validationSchema={AuthValidation.register}
       >
         <Form>
-          <>{error && <ErrorAlert title={error as string} />}</>
+          <>
+            {error && (
+              <ErrorAlert title={error as string} clearHandler={clearError} />
+            )}
+          </>
           <TextField
             name="email"
             label={t("login_input_email_label", { ns: "global" })}
@@ -133,7 +137,7 @@ const Register = ({ onNavigateStateComponent }: RegisterProps) => {
             h={14}
             type="submit"
             isLoading={isLoading}
-            loadingText={"Loading..."}
+            loadingText={`${t("loading", { ns: "global" })}`}
           >
             {t("register_btn", { ns: "global" })}
           </Button>

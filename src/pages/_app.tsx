@@ -16,7 +16,7 @@ import { store } from "src/store/store"
 import { SessionProvider } from "next-auth/react"
 import AuthProvider from "src/provider/auth.provider"
 
-NProgress.configure({ showSpinner: true })
+NProgress.configure({ showSpinner: false })
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   useEffect(() => {

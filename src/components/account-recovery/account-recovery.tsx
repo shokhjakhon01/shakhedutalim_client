@@ -33,8 +33,12 @@ const AccountRecovery = ({
   const [step, setStep] = useState<1 | 2 | 3>(1)
   const { show, toggleShow, showConfirm, toggleShowConfirm } = useShowPassword()
   const toast = useToast()
-  const { verifyVerificationCode, sendVerificationCode, editProfilePassword } =
-    useActions()
+  const {
+    verifyVerificationCode,
+    sendVerificationCode,
+    editProfilePassword,
+    clearError,
+  } = useActions()
 
   const { t } = useTranslation()
   const { error, isLoading } = useTypedSelector((state) => state.user)
@@ -69,13 +73,17 @@ const AccountRecovery = ({
         </Text>
       </Heading>
       <Text>{t("account_recovery_description_form1", { ns: "global" })}</Text>
+      <>
+        {error && (
+          <ErrorAlert clearHandler={clearError} title={error as string} />
+        )}
+      </>
       <Formik
         onSubmit={onForm1Submit}
         initialValues={{ email: "" }}
         validationSchema={AuthValidation.onlyEmail}
       >
         <Form>
-          <>{error && <ErrorAlert title={error as string} />}</>
           <TextField
             name="email"
             label={t("login_input_email_label", { ns: "global" })}
@@ -94,7 +102,7 @@ const AccountRecovery = ({
             mt={5}
             type="submit"
             isLoading={isLoading}
-            loadingText={"Loading..."}
+            loadingText={`${t("loading", { ns: "global" })}`}
           >
             {t("account_recovery_btn_form1", { ns: "global" })}
           </Button>
@@ -131,7 +139,11 @@ const AccountRecovery = ({
         </Text>
       </Heading>
       <Text>{t("account_recovery_description_form2", { ns: "global" })}</Text>
-      <>{error && <ErrorAlert title={error as string} />}</>
+      <>
+        {error && (
+          <ErrorAlert title={error as string} clearHandler={clearError} />
+        )}
+      </>
       <Formik
         onSubmit={onForm2Submit}
         initialValues={{ otp: "" }}
@@ -177,7 +189,7 @@ const AccountRecovery = ({
               mt={4}
               type={"submit"}
               isLoading={isLoading}
-              loadingText={"Loading..."}
+              loadingText={`${t("loading", { ns: "global" })}`}
             >
               {t("account_recovery_btn_form2", { ns: "global" })}
             </Button>
@@ -194,8 +206,8 @@ const AccountRecovery = ({
       callback: () => {
         onNavigateStateComponent("login")
         toast({
-          title: "Successfully edited",
-          description: "You can login to account with new passowrd",
+          title: `${t("successfully_edited", { ns: "global" })}`,
+          description: `${t("login_with_new_password", { ns: "global" })}`,
           status: "success",
           position: "top-right",
           isClosable: true,
@@ -267,7 +279,7 @@ const AccountRecovery = ({
             mt={4}
             type={"submit"}
             isLoading={isLoading}
-            loadingText={"Loading..."}
+            loadingText={`${t("loading", { ns: "global" })}`}
           >
             {t("account_recovery_btn_form3", { ns: "global" })}
           </Button>

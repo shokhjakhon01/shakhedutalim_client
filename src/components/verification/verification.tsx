@@ -20,7 +20,7 @@ import ErrorAlert from "../error-alert/error-alert"
 import { useRouter } from "next/router"
 
 const Verification = () => {
-  const { verifyVerificationCode, register } = useActions()
+  const { verifyVerificationCode, register, clearError } = useActions()
   const { t } = useTranslation()
   const { error, isLoading, user } = useTypedSelector((state) => state.user)
   const router = useRouter()
@@ -38,7 +38,7 @@ const Verification = () => {
           callback: () => {
             router.push("/")
             toast({
-              title: "Successfully logged in",
+              title: `${t("successfully_logged", { ns: "global" })}`,
               position: "top-right",
               isClosable: true,
             })
@@ -67,6 +67,11 @@ const Verification = () => {
       <Text color={"gray.500"} fontSize={{ base: "sm", sm: "md" }}>
         {t("verification_description", { ns: "global" })}
       </Text>
+      <>
+        {error && (
+          <ErrorAlert title={error as string} clearHandler={clearError} />
+        )}
+      </>
       <Formik
         onSubmit={onSubmit}
         initialValues={{ otp: "" }}
@@ -112,7 +117,7 @@ const Verification = () => {
               h={14}
               type={"submit"}
               isLoading={isLoading}
-              loadingText={"Loading..."}
+              loadingText={`${t("loading", { ns: "global" })}`}
             >
               {t("verification_btn", { ns: "global" })}
             </Button>

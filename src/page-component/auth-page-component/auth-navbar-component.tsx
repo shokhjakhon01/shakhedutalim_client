@@ -15,7 +15,7 @@ import {
 import Image from "next/image"
 import Logo from "../../icons/logo3.png"
 import Link from "next/link"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { BiMenuAltLeft } from "react-icons/bi"
 import { BsFillMoonFill, BsFillSunFill } from "react-icons/bs"
@@ -32,13 +32,20 @@ const AuthNavbarComponent = () => {
     i18n.changeLanguage(lng)
   }
 
-  const toggleMenu = () => {
-    setMenu((prev) => !prev)
+  useEffect(() => {
     if (menu) {
       document.body.style.overflow = ""
     } else {
       document.body.style.overflow = "hidden"
     }
+
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [menu])
+
+  const toggleMenu = () => {
+    setMenu((prev) => !prev)
   }
 
   return (
