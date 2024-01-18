@@ -27,13 +27,16 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react"
-import { Form, Formik } from "formik"
+import { Form, Formik, FormikConfig } from "formik"
 import { FC } from "react"
 import { useTranslation } from "react-i18next"
 import { GoVerified } from "react-icons/go"
+import { ErrorAlert } from "src/components"
 import SectionTitle from "src/components/section-title/section-title"
 import TextField from "src/components/text-field/text-field"
 import { teachValues } from "src/config/constants"
+import { useActions } from "src/hooks/useActions"
+import { useTypedSelector } from "src/hooks/useTypedSelector"
 import {
   LaunchCourseIcon,
   PlanCurriculumIcon,
@@ -45,15 +48,22 @@ const BecomeInstructorPageComponent = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { t } = useTranslation()
   const toast = useToast()
+  const { applyInstructor, clearInstructorError } = useActions()
+  const { error, isLoading } = useTypedSelector((state) => state.instructor)
 
-  const onSubmit = () => {
-    toast({
-      title: "Successfully sent",
-      description: "We'll contact with you coming soon",
-      isClosable: true,
-      position: "top-right",
+  const onSubmit = (formData) => {
+    applyInstructor({
+      ...formData,
+      callback: () => {
+        toast({
+          title: "Successfully sent",
+          description: "We'll contact with you coming soon",
+          isClosable: true,
+          position: "top-right",
+        })
+        onClose()
+      },
     })
-    onClose()
   }
 
   return (
@@ -175,6 +185,14 @@ const BecomeInstructorPageComponent = () => {
             <Form>
               <ModalBody>
                 <Stack spacing={4}>
+                  <>
+                    {error && (
+                      <ErrorAlert
+                        title={error as string}
+                        clearHandler={clearInstructorError}
+                      />
+                    )}
+                  </>
                   <Flex gap={4}>
                     <TextField
                       name={"firstName"}
@@ -209,6 +227,8 @@ const BecomeInstructorPageComponent = () => {
                   colorScheme={"cyan"}
                   h={14}
                   rightIcon={<GoVerified />}
+                  isLoading={isLoading}
+                  loadingText={`${t("loading", { ns: "global" })}`}
                 >
                   {t("send_to_verify_btn", { ns: "global" })}
                 </Button>
