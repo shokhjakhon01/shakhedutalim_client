@@ -12,3 +12,8 @@ export { default as DetailedCourseComponent } from "./courses-page-component/det
 export { default as BecomeInstructorPageComponent } from "./become-instructor-page-component/become-instructor-page-component"
 export { default as StudentPageComponent } from "./instructor-page-component/student-page-component"
 export { default as CoursePageComponent } from "./instructor-page-component/courses-page-component"
+export { default as InstructorCreateCourseComponent } from "./instructor-page-component/create-course-component"
+export { default as EditCoursePageComponent } from "./instructor-page-component/edit-course-page-component"
+export { default as EditDetailedCoursePageComponent } from "./instructor-page-component/edit-detailed-course-page-components"
+export { default as DraftCoursePageComponent } from "./instructor-page-component/draft-course-page-component"
+export { default as RevenuePageComponent } from "./instructor-page-component/revenue-page-component"
